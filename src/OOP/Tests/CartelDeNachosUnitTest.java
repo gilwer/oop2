@@ -8,6 +8,7 @@ import OOP.Provided.CasaDeBurrito.RateRangeException;
 import OOP.Provided.Profesor;
 import OOP.Provided.Profesor.*;
 import OOP.Solution.CartelDeNachosImpl;
+import OOP.Solution.CasaDeBurritoImpl;
 import OOP.Solution.ProfesorImpl;
 import org.junit.Rule;
 import org.junit.Test;
@@ -46,7 +47,7 @@ public class CartelDeNachosUnitTest {
             assertEquals(2, profesors.size());
             Profesor p3 = cartel.getProfesor(1);
             assertSame(p1, p3);
-//            assertEquals(p1, p3);  // TODO fix equals of Profesor
+            assertEquals(p1, p3);
             assertNotSame(p2, p3);
             assertNotEquals(p2, p3);
         } catch (ProfesorAlreadyInSystemException | ProfesorNotInSystemException e) {
@@ -76,7 +77,7 @@ public class CartelDeNachosUnitTest {
             assertEquals(2, restaurants.size());
             CasaDeBurrito c3 = cartel.getCasaDeBurrito(1);
             assertSame(c1, c3);
-//            assertEquals(c1, c3);  // TODO check equals in CasaDeBurrito
+            assertEquals(c1, c3);
             assertNotSame(c2, c3);
             assertNotEquals(c2, c3);
         } catch (CasaDeBurritoNotInSystemException | CasaDeBurritoAlreadyInSystemException e) {
@@ -126,7 +127,7 @@ public class CartelDeNachosUnitTest {
     }
 
     @Test
-    public void favoritesTest() throws ProfesorNotInSystemException, UnratedFavoriteCasaDeBurritoException {
+    public void favoritesTest() throws ProfesorNotInSystemException, UnratedFavoriteCasaDeBurritoException, CartelDeNachos.ImpossibleConnectionException, CasaDeBurritoNotInSystemException {
         CartelDeNachos cartel = new CartelDeNachosImpl();
         assertNotNull(cartel);
         CasaDeBurrito[] casaDeBurritos = new CasaDeBurrito[7];
@@ -183,42 +184,94 @@ public class CartelDeNachosUnitTest {
             cartel.addConnection(profesors[3], profesors[4]);
 
             ArrayList<CasaDeBurrito> expResByRate1 = new ArrayList<>();
-            expResByRate1.add(casaDeBurritos[1]);
             expResByRate1.add(casaDeBurritos[4]);
+            expResByRate1.add(casaDeBurritos[1]);
             assertEquals(cartel.favoritesByRating(profesors[0]),expResByRate1);
             ArrayList<CasaDeBurrito> expResByRate2 = new ArrayList<>();
             expResByRate2.add(casaDeBurritos[2]);
             expResByRate2.add(casaDeBurritos[6]);
-            expResByRate2.add(casaDeBurritos[0]);
-            expResByRate2.add(casaDeBurritos[4]);
             expResByRate2.add(casaDeBurritos[1]);
+            expResByRate2.add(casaDeBurritos[4]);
+            expResByRate2.add(casaDeBurritos[0]);
             assertEquals(cartel.favoritesByRating(profesors[1]),expResByRate2);
             ArrayList<CasaDeBurrito> expResByRate3 = new ArrayList<>();
             expResByRate3.add(casaDeBurritos[3]);
             expResByRate3.add(casaDeBurritos[0]);
             expResByRate3.add(casaDeBurritos[4]);
             expResByRate3.add(casaDeBurritos[1]);
-//            assertEquals(cartel.favoritesByRating(profesors[2]),expResByRate3);
+            assertEquals(cartel.favoritesByRating(profesors[2]),expResByRate3);
             ArrayList<CasaDeBurrito> expResByRate4 = new ArrayList<>();
-            expResByRate4.add(casaDeBurritos[2]);
-            expResByRate4.add(casaDeBurritos[6]);
-            expResByRate4.add(casaDeBurritos[3]);
-            expResByRate4.add(casaDeBurritos[0]);
             expResByRate4.add(casaDeBurritos[5]);
             expResByRate4.add(casaDeBurritos[4]);
+            expResByRate4.add(casaDeBurritos[3]);
+            expResByRate4.add(casaDeBurritos[0]);
+            expResByRate4.add(casaDeBurritos[2]);
+            expResByRate4.add(casaDeBurritos[6]);
             expResByRate4.add(casaDeBurritos[1]);
-//            assertEquals(cartel.favoritesByRating(profesors[3]),expResByRate4);
+            assertEquals(cartel.favoritesByRating(profesors[3]),expResByRate4);
             ArrayList<CasaDeBurrito> expResByRate5 = new ArrayList<>();
             expResByRate5.add(casaDeBurritos[3]);
             expResByRate5.add(casaDeBurritos[0]);
             expResByRate5.add(casaDeBurritos[4]);
             expResByRate5.add(casaDeBurritos[1]);
-//            assertEquals(cartel.favoritesByRating(profesors[4]),expResByRate5);
+            assertEquals(cartel.favoritesByRating(profesors[4]),expResByRate5);
 
-        } catch (ProfesorAlreadyInSystemException | CasaDeBurritoAlreadyInSystemException | RateRangeException | SameProfesorException | ConnectionAlreadyExistsException e) {
+            ArrayList<CasaDeBurrito> expResByDist1 = new ArrayList<>();
+            expResByDist1.add(casaDeBurritos[1]);
+            expResByDist1.add(casaDeBurritos[4]);
+            assertEquals(cartel.favoritesByDist(profesors[0]), expResByDist1);
+            ArrayList<CasaDeBurrito> expResByDist2 = new ArrayList<>();
+            expResByDist2.add(casaDeBurritos[6]);
+            expResByDist2.add(casaDeBurritos[1]);
+            expResByDist2.add(casaDeBurritos[2]);
+            expResByDist2.add(casaDeBurritos[4]);
+            expResByDist2.add(casaDeBurritos[0]);
+            assertEquals(cartel.favoritesByDist(profesors[1]), expResByDist2);
+            ArrayList<CasaDeBurrito> expResByDist3 = new ArrayList<>();
+            expResByDist3.add(casaDeBurritos[0]);
+            expResByDist3.add(casaDeBurritos[3]);
+            expResByDist3.add(casaDeBurritos[1]);
+            expResByDist3.add(casaDeBurritos[4]);
+            assertEquals(cartel.favoritesByDist(profesors[2]), expResByDist3);
+            ArrayList<CasaDeBurrito> expResByDist4 = new ArrayList<>();
+            expResByDist4.add(casaDeBurritos[5]);
+            expResByDist4.add(casaDeBurritos[4]);
+            expResByDist4.add(casaDeBurritos[0]);
+            expResByDist4.add(casaDeBurritos[3]);
+            expResByDist4.add(casaDeBurritos[6]);
+            expResByDist4.add(casaDeBurritos[1]);
+            expResByDist4.add(casaDeBurritos[2]);
+            assertEquals(cartel.favoritesByDist(profesors[3]), expResByDist4);
+            ArrayList<CasaDeBurrito> expResByDist5 = new ArrayList<>();
+            expResByDist5.add(casaDeBurritos[0]);
+            expResByDist5.add(casaDeBurritos[3]);
+            expResByDist5.add(casaDeBurritos[1]);
+            expResByDist5.add(casaDeBurritos[4]);
+            assertEquals(cartel.favoritesByDist(profesors[4]), expResByDist5);
+
+            assertFalse(cartel.getRecommendation(profesors[0], casaDeBurritos[1], 0));
+            assertTrue(cartel.getRecommendation(profesors[0], casaDeBurritos[1], 1));
+            assertTrue(cartel.getRecommendation(profesors[0], casaDeBurritos[6], 2));
+            assertTrue(cartel.getRecommendation(profesors[4], casaDeBurritos[6], 0));
+            assertFalse(cartel.getRecommendation(profesors[4], casaDeBurritos[2], 1));
+            assertTrue(cartel.getRecommendation(profesors[4], casaDeBurritos[2], 2));
+            assertTrue(cartel.getRecommendation(profesors[2], casaDeBurritos[5], 2));
+
+        } catch (ProfesorAlreadyInSystemException | CasaDeBurritoAlreadyInSystemException | RateRangeException | SameProfesorException | ConnectionAlreadyExistsException | CasaDeBurritoNotInSystemException | CartelDeNachos.ImpossibleConnectionException e) {
             fail();
         }
+        System.out.print(cartel);
 
+        Profesor p = new ProfesorImpl(10, "David");
+        exceptionRule.expect(ProfesorNotInSystemException.class);
+        cartel.favoritesByRating(p);
+        cartel.favoritesByDist(p);
+        cartel.getRecommendation(p, casaDeBurritos[0], 0);
+        CasaDeBurrito c = new CasaDeBurritoImpl(10, "McDavid", 100, null);
+        exceptionRule.expect(CasaDeBurritoNotInSystemException.class);
+        cartel.getRecommendation(profesors[0], c, 0);
+        exceptionRule.expect(CartelDeNachos.ImpossibleConnectionException.class);
+        cartel.getRecommendation(profesors[0], casaDeBurritos[0], -4);
 
     }
 }

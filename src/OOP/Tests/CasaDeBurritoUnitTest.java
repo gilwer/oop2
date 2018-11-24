@@ -57,7 +57,7 @@ public class CasaDeBurritoUnitTest {
         };
         assertFalse(c1.isRatedBy(f));
         assertTrue(c1.numberOfRates()==2);
-        assertTrue(c1.averageRating()==(4+1)/2);
+        assertTrue(c1.averageRating()==(4+1)/2.0);
         assertTrue(c1.compareTo(c1)==0);
         CasaDeBurrito c2 = new CasaDeBurritoImpl(2,"c2",3,menu);
         assertTrue(c1.compareTo(c2)==-1);

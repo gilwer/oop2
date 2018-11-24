@@ -95,6 +95,6 @@ public class ProfesorImpl implements Profesor {
 
     @Override
     public boolean equals(Object o){
-        return o instanceof Profesor ? false : Id == ((Profesor) o).getId();
+        return o instanceof Profesor ? Id == ((Profesor) o).getId() : false;
     }
 }

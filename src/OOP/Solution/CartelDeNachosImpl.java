@@ -114,9 +114,9 @@ public class CartelDeNachosImpl implements CartelDeNachos {
 
     @Override
     public String toString() {
-        return "Registered profesores: " + profesors.keySet().stream().sorted().map(String::valueOf).collect(Collectors.joining(",")) + "."
-                + ".\nRegistered casas de burrito: " + restaurants.keySet().stream().sorted().map(String::valueOf).collect(Collectors.joining(",")) + "."
+        return "Registered profesores: " + profesors.keySet().stream().sorted().map(String::valueOf).collect(Collectors.joining(", "))
+                + ".\nRegistered casas de burrito: " + restaurants.keySet().stream().sorted().map(String::valueOf).collect(Collectors.joining(", "))
                 + ".\nProfesores:"
-                + profesors.values().stream().sorted().map(p -> "\n" + p.getId() + " -> " + p.getFriends().stream().map(Profesor::getId).sorted().collect(Collectors.toList()) + ".");
+                + profesors.values().stream().sorted().map(p -> "\n" + p.getId() + " -> " + p.getFriends().stream().map(Profesor::getId).sorted().collect(Collectors.toList()) + ".").collect(Collectors.joining(""));
     }
 }

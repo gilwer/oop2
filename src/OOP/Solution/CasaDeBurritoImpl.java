@@ -58,7 +58,9 @@ public class CasaDeBurritoImpl implements CasaDeBurrito {
 
     @Override
     public double averageRating() {
-        return ratings.values().stream().mapToInt(i->i).sum()/numberOfRates();
+        if (numberOfRates() == 0)
+            return 0;
+        return ratings.values().stream().mapToDouble(i->i).sum()/numberOfRates();
     }
 
     @Override
@@ -66,9 +68,11 @@ public class CasaDeBurritoImpl implements CasaDeBurrito {
         return Id-c.getId();
     }
 
+
+
     @Override
     public boolean equals(Object o){
-        return o instanceof CasaDeBurrito ? false : Id == ((CasaDeBurrito) o).getId();
+        return o instanceof CasaDeBurrito ? Id == ((CasaDeBurrito) o).getId() : false;
     }
 
     @Override
