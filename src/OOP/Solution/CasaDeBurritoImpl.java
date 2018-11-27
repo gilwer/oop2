@@ -68,7 +68,10 @@ public class CasaDeBurritoImpl implements CasaDeBurrito {
         return Id-c.getId();
     }
 
-
+    @Override
+    public int hashCode(){
+        return getId();
+    }
 
     @Override
     public boolean equals(Object o){

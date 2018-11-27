@@ -45,7 +45,7 @@ public class ProfesorImpl implements Profesor {
 
     @Override
     public Profesor addFriend(Profesor p) throws SameProfesorException, ConnectionAlreadyExistsException {
-      if(p==this)throw new SameProfesorException();
+      if(p.equals(this))throw new SameProfesorException();
       if(!friends.add(p))throw new ConnectionAlreadyExistsException();
       return this;
     }
@@ -96,5 +96,10 @@ public class ProfesorImpl implements Profesor {
     @Override
     public boolean equals(Object o){
         return o instanceof Profesor ? Id == ((Profesor) o).getId() : false;
+    }
+
+    @Override
+    public int hashCode(){
+        return getId();
     }
 }
